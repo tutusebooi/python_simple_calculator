@@ -27,9 +27,11 @@ def user_interfase():
     text_box.pack(padx=10)
 
     button = tk.Button(root,text="ENTER", font=("Bold", 18))
+    #button = tk.Button(root,text="Hello", font=("Bold", 18))
+    button.pack()
     button.pack()
     #tk.CENTER()
-#testing
+
 
     root.mainloop()
 user_interfase()
