@@ -3,7 +3,16 @@ import tkinter as tk
 from opertations import *
 
 def add_to_calculator(symbol):
-    pass
+    if symbol == "-":
+        return minus_all()
+    elif symbol =="+":
+        return add_to_calculator()
+    elif symbol == "*":
+        return multiply_all()
+    elif symbol == "/":
+        return devide_all()
+    else:
+        print("Invalid operation")
 
 
 def clear_calculator():
