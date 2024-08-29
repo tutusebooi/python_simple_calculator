@@ -4,6 +4,17 @@ def add_to_calculator(symbol):
     current_text = text_box.get("1.0", tk.END).strip()
     text_box.delete("1.0", tk.END)
     text_box.insert(tk.END, current_text + str(symbol))
+    if symbol == "-":
+        return minus_all()
+    elif symbol =="+":
+        return add_to_calculator()
+    elif symbol == "*":
+        return multiply_all()
+    elif symbol == "/":
+        return devide_all()
+    else:
+        print("Invalid operation")
+
 
 def clear_calculator():
     text_box.delete("1.0", tk.END)
