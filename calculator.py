@@ -1,39 +1,58 @@
-# simple calculator GUI
 import tkinter as tk
-from opertations import *
 
 def add_to_calculator(symbol):
-    pass
-
+    current_text = text_box.get("1.0", tk.END).strip()
+    text_box.delete("1.0", tk.END)
+    text_box.insert(tk.END, current_text + str(symbol))
 
 def clear_calculator():
-    pass
+    text_box.delete("1.0", tk.END)
 
+def evaluate_calculator():
+    expression = text_box.get("1.0", tk.END).strip()
+    try:
+        result = eval(expression)
+        clear_calculator()
+        text_box.insert(tk.END, str(result))
+    except Exception as e:
+        clear_calculator()
+        text_box.insert(tk.END, "Error")
 
-def user_input( num1,num2):
-    num1 = int(input())
-    num2 = int(input())
-    return num1, num2
+def user_interface():
+    root = tk.Tk()
+    root.geometry("400x400")
+    root.title("Simple Calculator")
 
+    global text_box
+    text_box = tk.Text(root, height=2, font=("bold", 16))
+    text_box.pack(padx=10, pady=10)
 
-def user_interfase():
-    root= tk.Tk()
+    # Creating the buttons for numbers 0-9
+    button_frame = tk.Frame(root)
+    button_frame.pack()
 
-    root.geometry("500x500")
+    buttons = [
+        ('7', 1, 0), ('8', 1, 1), ('9', 1, 2),
+        ('4', 2, 0), ('5', 2, 1), ('6', 2, 2),
+        ('1', 3, 0), ('2', 3, 1), ('3', 3, 2), ('0', 4, 1)
+    ]
 
-    label = tk.Label(root, text="Calculator",font=("Bold", 15))
-    label.pack()
-    text_box = tk.Text(root, height=2,font=("bold",16))
-    text_box.pack(padx=10)
+    for (text, row, col) in buttons:
+        tk.Button(button_frame, text=text, width=5, height=2, command=lambda t=text: add_to_calculator(t)).grid(row=row, column=col)
 
-    button = tk.Button(root,text="ENTER", font=("Bold", 18))
-    #button = tk.Button(root,text="Hello", font=("Bold", 18))
-    button.pack()
-    button.pack()
-    #tk.CENTER()
+    # Operator buttons
+    operators = [
+        ('+', 1, 3), ('-', 2, 3),
+        ('*', 3, 3), ('/', 4, 3)
+    ]
 
+    for (symbol, row, col) in operators:
+        tk.Button(button_frame, text=symbol, width=5, height=2, command=lambda s=symbol: add_to_calculator(s)).grid(row=row, column=col)
+
+    # Equal and Clear buttons
+    tk.Button(button_frame, text='=', width=5, height=2, command=evaluate_calculator).grid(row=4, column=2)
+    tk.Button(button_frame, text='C', width=5, height=2, command=clear_calculator).grid(row=4, column=0)
 
     root.mainloop()
-user_interfase()
 
-
+user_interface()
